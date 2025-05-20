@@ -1,34 +1,28 @@
-# FSE Vision Prototypes: The Architectural Thesis
+# FSE Vision Prototypes — From CNNs to Continuous Fields
 **Author: Pirassena Sabaratnam**
 
-## Research Thesis: From Tensors to Fields
-The development of the **Field Signal Engine (FSE)** was driven by a core observation during the creation of the **NAIMME AR app**: traditional Convolutional Neural Networks (CNNs) treat image features as discrete, rigid tensors. While effective for classification, this approach often lacks the "spatio-temporal fluidity" required for seamless, real-time Augmented Reality.
+## Overview
+This repository archives the iterative research process of developing **continuous field dynamics** for computer vision, motivated by the limitations of standard CNNs in real-time AR.
 
-This repository archives the iterative research process of moving away from standard deep learning frameworks toward a custom **Flow Field** engine.
+The core observation: traditional CNNs treat image features as discrete, rigid tensors. For real-time AR, we need spatio-temporal coherence — features that evolve smoothly across frames, not features that are recomputed independently per frame.
 
 ## Architectural Evolution
 
 ### 1. TensorFlow Prototype (`01-TF-Prototype`)
-The first full-scale implementation of the FSE philosophy. 
-- **Goal**: To prove that neural activations could be modeled as continuous signals (Fields) using custom Keras layers (`FLIT`, `CSE`, `FIL`).
-- **Discovery**: While the math was sound, the TensorFlow/Keras overhead was too high to achieve the low-latency "field evolution" required for AR.
+First implementation of continuous field layers as custom Keras layers.
+- **Goal**: Prove that neural activations can be modeled as continuous signals with learnable evolution rates, rather than static feature maps.
+- **Result**: The math worked, but TensorFlow/Keras overhead was too high for the low-latency field updates needed for real-time AR.
 
-### 2. CNN-Hybrid Iteration (`02-CNN-Hybrid`)
-A transitional model that integrated FSE blocks into industry-standard backbones (MobileNet/EfficientNet).
-- **Goal**: To determine if augmenting standard CNNs with field-evolution logic could improve multi-task coherence (Keypoints + Segmentation + Normals).
-- **Findings**: Documented in the May 2025 metrics, this version showed improved stability in surface normal estimation but confirmed that a native engine was necessary for true real-time performance.
-
-## Core Philosophical Units
-The project utilizes specialized nomenclature for its internal field-processing units, rooted in standard ML concepts:
-- **FLIT (Floating Information Unit)**: Conceptually analogous to **Adaptive Stochastic Neurons** or **Dynamic State Vectors** with learnable evolution rates.
-- **CSE (Continuous State Element)**: Functionally similar to **Spatio-Temporal Memory Cells** or **Global Context Latents** with momentum-based state updates.
-- **FIL (Field Interaction Layer)**: A specialized **Feature Fusion/Modality-Mixing Block** that manages continuous, wave, or quantum field transformations.
+### 2. CNN + Continuous Field Hybrid (`02-CNN-Hybrid`)
+Transitional model augmenting standard CNN backbones (MobileNet/EfficientNet) with custom field-evolution layers.
+- **Goal**: Determine if adding continuous field layers to standard CNNs improves multi-task coherence (keypoints + segmentation + normals predicted from shared evolving features).
+- **Result**: Improved stability in surface normal estimation. Confirmed that a native engine (not a framework plugin) was necessary for real-time performance.
 
 ## Conclusion
-This research journey established that true "Continuous Field" dynamics are best executed outside of traditional high-level frameworks. This realization led directly to the development of the **FSENativeFLUXAFF** (Flowfield) engine, which utilizes custom vectorized kernels for optimized field computation.
+This research established that continuous field dynamics require a purpose-built engine — standard deep learning frameworks add too much overhead for the fine-grained field updates the approach requires. This led directly to the development of the **FlowField engine** (see [FSENativeFLUXAFF](https://github.com/ps2604/FSENativeFLUXAFF)).
 
 ## License
-This project is licensed under the Apache License 2.0.
+Apache License 2.0.
 
 ---
-*Developed in 2025 as part of the Auralith Inc. Research.*
+*Developed May 2025 — Auralith Inc.*
