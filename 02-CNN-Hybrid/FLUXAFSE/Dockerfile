@@ -2,25 +2,17 @@ FROM tensorflow/tensorflow:2.13.0-gpu
 
 WORKDIR /app
 
-# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install minimal OpenCV dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+    libgl1-mesa-glx libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 
-# Copy FSE core components FIRST
-COPY fse_core.py .
-
-# Copy training code
-COPY fluxa_fse_train.py .
+# Copy the source code
+COPY src/ /app/src/
 COPY setup.py .
+RUN pip install -e .
 
-# Ensure all Python files are in Python path
-ENV PYTHONPATH=/app:$PYTHONPATH
+ENV PYTHONPATH=/app/src:$PYTHONPATH
 
-# Set entrypoint to FSE training script
-ENTRYPOINT ["python", "fluxa_fse_train.py"]
+ENTRYPOINT ["python", "src/fluxa_fse_native_train.py"]
