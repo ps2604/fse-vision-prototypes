@@ -1,0 +1,16 @@
+# Documentation & Pitch Decks
+*.pdf
+Docs/
+
+# Training Artifacts
+checkpoints/
+*.weights.h5
+*.h5
+logs/
+
+# Python & Environment
+__pycache__/
+*.pyc
+.env
+.venv
+.DS_Store
